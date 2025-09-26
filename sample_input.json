@@ -1,0 +1,23 @@
+{
+  "user_data": {
+    "name": "John Doe",
+    "age": 30,
+    "email": "john.doe@example.com"
+  },
+  "product_info": {
+    "id": "P123",
+    "name": "Wireless Headphones",
+    "price": 99.99,
+    "category": "Electronics"
+  },
+  "transaction": {
+    "timestamp": "2025-09-26T10:30:00Z",
+    "amount": 99.99,
+    "currency": "USD",
+    "status": "completed"
+  },
+  "metadata": {
+    "source": "web_app",
+    "version": "1.2.3"
+  }
+}

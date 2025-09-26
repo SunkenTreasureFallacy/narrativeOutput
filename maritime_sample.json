@@ -1,0 +1,39 @@
+{
+  "voyage_data": {
+    "vessel_name": "Ocean Explorer",
+    "captain": "John Smith",
+    "departure_time": "2025-09-26T08:00:00Z"
+  },
+  "waypoints": [
+    {
+      "name": "Boston Harbor",
+      "location": "Massachusetts Bay",
+      "waypoint_type": "departure_port"
+    },
+    {
+      "name": "Nova Scotia",
+      "location": "Halifax Harbor",
+      "waypoint_type": "destination_port"
+    }
+  ],
+  "weather_conditions": {
+    "wind_speed": "15 knots",
+    "wind_direction": "northeast",
+    "temperature": "68°F",
+    "visibility": "10 nautical miles",
+    "weather_condition": "partly cloudy",
+    "pressure": "1015 hPa"
+  },
+  "wave_data": {
+    "significant_wave_height": "4-6 feet",
+    "wave_direction": "from the east",
+    "wave_period": "8 seconds",
+    "swell_height": "2-3 feet",
+    "sea_condition": "moderate seas"
+  },
+  "navigation": {
+    "course": "045 degrees",
+    "speed": "12 knots",
+    "eta": "2025-09-27T14:30:00Z"
+  }
+}

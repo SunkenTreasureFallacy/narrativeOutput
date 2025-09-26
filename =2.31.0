@@ -1,0 +1,11 @@
+Collecting requests
+  Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+Collecting charset_normalizer<4,>=2 (from requests)
+  Using cached charset_normalizer-3.4.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (36 kB)
+Requirement already satisfied: idna<4,>=2.5 in ./myenv/lib/python3.12/site-packages (from requests) (3.10)
+Requirement already satisfied: urllib3<3,>=1.21.1 in ./myenv/lib/python3.12/site-packages (from requests) (2.5.0)
+Requirement already satisfied: certifi>=2017.4.17 in ./myenv/lib/python3.12/site-packages (from requests) (2025.8.3)
+Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+Using cached charset_normalizer-3.4.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (151 kB)
+Installing collected packages: charset_normalizer, requests
+Successfully installed charset_normalizer-3.4.3 requests-2.32.5
