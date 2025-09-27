@@ -20,6 +20,20 @@ class JSONInput(BaseModel):
     max_tokens: Optional[int] = 4096
     aws_region: Optional[str] = "us-west-2"
 
+class JourneyLogRequest(BaseModel):
+    journeyId: str
+
+class LogEntry(BaseModel):
+    waypointId: str
+    timestamp: int
+    logEntry: str
+    weather: str
+    seaConditions: str
+    imageUrl: Optional[str] = None
+
+class JourneyLogResponse(BaseModel):
+    entries: list[LogEntry]
+
 class URLInput(BaseModel):
     url: str
     prompt_prefix: Optional[str] = "For each location, write exactly 3 compelling sentences in present tense and active voice as if we are currently at that specific location, focusing on its unique characteristics and features while enjoying the maritime conditions and surroundings: "
@@ -36,6 +50,7 @@ async def root():
         "endpoints": {
             "/generate": "POST - Generate narrative from JSON data",
             "/generate-from-url": "POST - Generate narrative from URL endpoint",
+            "/api/journey/log": "POST - Get journey log entries",
             "/health": "GET - Health check"
         }
     }
@@ -79,6 +94,42 @@ async def generate_narrative(input_data: JSONInput):
             error=str(e)
         )
         raise HTTPException(status_code=500, detail=error_result)
+
+@app.post("/api/journey/log")
+async def get_journey_log(request: JourneyLogRequest) -> JourneyLogResponse:
+    """Get journey log entries for a specific journey."""
+    try:
+        # Mock data for now - replace with actual database/storage logic
+        mock_entries = [
+            LogEntry(
+                waypointId="wp_001",
+                timestamp=1727328000,
+                logEntry="Departed from harbor under clear skies. Gentle easterly winds providing perfect sailing conditions.",
+                weather="Clear, 22°C, East wind 8 knots",
+                seaConditions="Calm seas, 0.5m swell",
+                imageUrl="https://example.com/images/departure.jpg"
+            ),
+            LogEntry(
+                waypointId="wp_002",
+                timestamp=1727335200,
+                logEntry="Reached first waypoint. Spectacular sunset painting the horizon in brilliant oranges and reds.",
+                weather="Partly cloudy, 20°C, Southeast wind 12 knots",
+                seaConditions="Moderate seas, 1.2m swell"
+            ),
+            LogEntry(
+                waypointId="wp_003",
+                timestamp=1727342400,
+                logEntry="Night sailing under a canopy of stars. Phosphorescence trailing in our wake creates a magical display.",
+                weather="Clear night, 18°C, South wind 15 knots",
+                seaConditions="Choppy seas, 1.8m swell",
+                imageUrl="https://example.com/images/night_sailing.jpg"
+            )
+        ]
+
+        return JourneyLogResponse(entries=mock_entries)
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve journey log: {str(e)}")
 
 @app.post("/generate-from-url")
 async def generate_narrative_from_url(input_data: URLInput):
@@ -130,4 +181,4 @@ async def generate_narrative_from_url(input_data: URLInput):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8001)

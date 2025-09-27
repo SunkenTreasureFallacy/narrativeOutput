@@ -322,31 +322,43 @@ def create_response_json(
     status: str = "success",
     error: Optional[str] = None
 ) -> Dict[str, Any]:
-    """Create structured JSON response with location-specific narratives."""
-    # Enhance narratives with weather and wave data
+    """Create structured JSON response matching journey log format."""
+    entries = []
+
     if maritime_data and narratives:
         locations = maritime_data.get("locations", [])
 
-        for narrative in narratives:
+        for i, narrative in enumerate(narratives):
             # Find matching location data
+            weather_str = ""
+            sea_conditions_str = ""
+
             for location in locations:
                 if location["name"] == narrative["location"]:
                     if location.get("weather"):
-                        narrative["weather"] = location["weather"]
+                        weather_str = "; ".join(location["weather"])
                     if location.get("waves"):
-                        narrative["waves"] = location["waves"]
+                        sea_conditions_str = "; ".join(location["waves"])
                     break
 
+            # Create entry matching the journey log structure
+            entry = {
+                "waypointId": f"wp_{str(i+1).zfill(3)}",
+                "timestamp": int(datetime.now().timestamp()) + (i * 3600),  # 1 hour apart
+                "logEntry": narrative["narrative"],
+                "weather": weather_str if weather_str else "Conditions not specified",
+                "seaConditions": sea_conditions_str if sea_conditions_str else "Sea state not specified"
+            }
+
+            entries.append(entry)
+
     result = {
-        "narratives": narratives,
-        "model": model,
-        "timestamp": datetime.now().isoformat(),
-        "locations_count": len(narratives),
-        "status": status
+        "entries": entries
     }
 
     if error:
         result["error"] = error
+        result["status"] = status
 
     return result
 
