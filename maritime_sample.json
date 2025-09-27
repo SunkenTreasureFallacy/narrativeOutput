@@ -8,29 +8,44 @@
     {
       "name": "Boston Harbor",
       "location": "Massachusetts Bay",
-      "waypoint_type": "departure_port"
+      "waypoint_type": "departure_port",
+      "weather_conditions": {
+        "wind_speed": "12 knots",
+        "wind_direction": "northeast",
+        "temperature": "65°F",
+        "visibility": "8 nautical miles",
+        "weather_condition": "clear skies",
+        "pressure": "1018 hPa"
+      },
+      "wave_data": {
+        "significant_wave_height": "2-3 feet",
+        "wave_direction": "from the southeast",
+        "wave_period": "6 seconds",
+        "swell_height": "1-2 feet",
+        "sea_condition": "calm seas"
+      }
     },
     {
       "name": "Nova Scotia",
       "location": "Halifax Harbor",
-      "waypoint_type": "destination_port"
+      "waypoint_type": "destination_port",
+      "weather_conditions": {
+        "wind_speed": "18 knots",
+        "wind_direction": "northwest",
+        "temperature": "58°F",
+        "visibility": "12 nautical miles",
+        "weather_condition": "partly cloudy",
+        "pressure": "1012 hPa"
+      },
+      "wave_data": {
+        "significant_wave_height": "5-7 feet",
+        "wave_direction": "from the north",
+        "wave_period": "10 seconds",
+        "swell_height": "3-4 feet",
+        "sea_condition": "moderate to rough seas"
+      }
     }
   ],
-  "weather_conditions": {
-    "wind_speed": "15 knots",
-    "wind_direction": "northeast",
-    "temperature": "68°F",
-    "visibility": "10 nautical miles",
-    "weather_condition": "partly cloudy",
-    "pressure": "1015 hPa"
-  },
-  "wave_data": {
-    "significant_wave_height": "4-6 feet",
-    "wave_direction": "from the east",
-    "wave_period": "8 seconds",
-    "swell_height": "2-3 feet",
-    "sea_condition": "moderate seas"
-  },
   "navigation": {
     "course": "045 degrees",
     "speed": "12 knots",

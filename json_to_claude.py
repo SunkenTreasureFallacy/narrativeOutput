@@ -56,9 +56,48 @@ def extract_maritime_data(data: Any) -> Dict[str, Any]:
     WEATHER_KEYWORDS = ['weather', 'wind', 'temperature', 'temp', 'pressure', 'humidity', 'visibility', 'condition', 'forecast']
     WAVE_KEYWORDS = ['wave', 'swell', 'height', 'period', 'direction', 'sea', 'surf', 'tide', 'current']
 
+    def extract_waypoint_data(waypoint_obj):
+        """Extract weather and wave data from a single waypoint object."""
+        location_name = None
+        weather_data = []
+        wave_data = []
+
+        for key, value in waypoint_obj.items():
+            key_lower = key.lower()
+
+            if isinstance(value, str) and value.strip():
+                # Check if this is a location name
+                if any(keyword in key_lower for keyword in WAYPOINT_KEYWORDS):
+                    location_name = value.strip()
+            elif isinstance(value, dict):
+                # Check if this is a nested weather or wave object
+                if any(keyword in key_lower for keyword in WEATHER_KEYWORDS):
+                    for sub_key, sub_value in value.items():
+                        if isinstance(sub_value, str) and sub_value.strip():
+                            weather_data.append(f"{sub_key}: {sub_value.strip()}")
+                elif any(keyword in key_lower for keyword in WAVE_KEYWORDS):
+                    for sub_key, sub_value in value.items():
+                        if isinstance(sub_value, str) and sub_value.strip():
+                            wave_data.append(f"{sub_key}: {sub_value.strip()}")
+
+        return location_name, weather_data, wave_data
+
     def extract_location_data(obj, parent_key=""):
         """Extract data and try to group by location."""
         if isinstance(obj, dict):
+            # Check if this object has waypoints array
+            if "waypoints" in obj and isinstance(obj["waypoints"], list):
+                for waypoint in obj["waypoints"]:
+                    if isinstance(waypoint, dict):
+                        location_name, weather_data, wave_data = extract_waypoint_data(waypoint)
+                        if location_name:
+                            locations.append({
+                                "name": location_name,
+                                "weather": weather_data,
+                                "waves": wave_data
+                            })
+                return
+
             # Check if this is a location object with conditions
             location_name = None
             weather_data = []
